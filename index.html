@@ -53,67 +53,35 @@
   <app-root></app-root>
 </body>
 </html> -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR Portal Door with Plane Detection</title>
-  <!-- A-Frame and Extras -->
-  <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.min.js"></script>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
-  <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
-  <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
+  <title>AR Model with Link</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+  <!-- Model Viewer with AR and Link -->
+  <model-viewer id="model" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+    ar ar-modes="webxr scene-viewer quick-look" environment-image="neutral" camera-controls 
+    interaction-prompt="auto" style="width: 100%; height: 100vh;">
+  </model-viewer>
 
   <script>
-    AFRAME.registerComponent('hit-test', {
-      init: () => {
-        const portalDoor = document.getElementById("portal-door");
+    const modelViewer = document.querySelector('#model');
 
-        // Set the door's initial visibility to false
-        portalDoor.setAttribute('visible', false);
-alert('init')
-        // This event will trigger when the cursor intersects with an object
-        this.el.addEventListener('click', (event) => {
-          alert('clicked')
-          const intersection = event.detail.intersection;
-
-          // Check if there is a valid intersection
-          if (intersection) {
-            const intersectedPoint = intersection.point;
-            // Set the position of the portal door and make it visible
-            portalDoor.setAttribute('position', intersectedPoint);
-            portalDoor.setAttribute('visible', true);
-            portalDoor.setAttribute('scale', '1 1 1'); // Scale to original size
-          }
-        });
+    // Detect tap/click in AR mode
+    modelViewer.addEventListener('click', () => {
+      // Check if in AR mode
+      if (modelViewer.isInAR) {
+        // Redirect to a specific URL
+        window.location.href = 'https://your-link.com';
       }
     });
   </script>
-</head>
 
-<body style="margin: 0; overflow: hidden;">
-  <a-scene vr-mode-ui="enabled: false" renderer="antialias: true" xrweb="optionalFeatures: hit-test, local-floor"
-    webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test">
-
-    <!-- Portal Door Model -->
-    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)" scale="0 0 0" visible="false"></a-entity>
-
-    <!-- Camera for AR with WebXR Hit Test -->
-    <a-camera hit-test>
-      <!-- Cursor for clicking -->
-      <a-cursor
-        id="cursor"
-        color="yellow"
-        fuse="true"
-        fuse-timeout="1000"
-        position="0 0 -1">
-      </a-cursor>
-    </a-camera>
-  </a-scene>
 </body>
-
 </html>
+
