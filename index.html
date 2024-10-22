@@ -58,7 +58,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR Model with Link</title>
+  <title>AR Model with Link and Exit</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -66,7 +66,7 @@
   <!-- Model Viewer with AR and Link -->
   <model-viewer id="model" src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
     ar ar-modes="webxr scene-viewer quick-look" environment-image="neutral" camera-controls 
-    interaction-prompt="auto" style="width: 100%; height: 70vh;">
+    interaction-prompt="auto" style="width: 100%; height: 80vh;">
   </model-viewer>
 
   <script>
@@ -78,12 +78,14 @@
       isInAR = event.detail.status === 'session-started';
     });
 
-    // Check click event and proximity in AR
+    // Check click event in AR, redirect to link and exit AR mode
     modelViewer.addEventListener('click', () => {
       if (isInAR) {
-        // Optionally, you could calculate distance from the camera (if using an advanced setup)
-        // For simplicity, redirect directly when clicked in AR
+        // Redirect to a link
         window.location.href = 'https://your-link.com';
+        
+        // Exit AR session
+        modelViewer.exitWebXR();
       }
     });
   </script>
