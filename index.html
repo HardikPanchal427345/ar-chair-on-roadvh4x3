@@ -70,12 +70,12 @@
 
   <script>
     AFRAME.registerComponent('hit-test', {
-      init: function () {
+      init: () => {
         const portalDoor = document.getElementById("portal-door");
 
         // Set the door's initial visibility to false
         portalDoor.setAttribute('visible', false);
-
+alert('init')
         // This event will trigger when the cursor intersects with an object
         this.el.addEventListener('click', (event) => {
           alert('clicked')
