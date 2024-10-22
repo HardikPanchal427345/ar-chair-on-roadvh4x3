@@ -30,10 +30,10 @@
 
 <body style="margin: 0; overflow: hidden;">
   <a-scene vr-mode-ui="enabled: false" renderer="antialias: true" xrweb="optionalFeatures: hit-test, local-floor"
-    webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test">
+    webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test" ar-hit-test="target:#portal-door;">
 
     <!-- Portal Door Model -->
-    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)" scale="0 0 0" visible="false"></a-entity>
+    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)" scale="0.5 0.5 0.5" visible="true"></a-entity>
 
     <!-- 3D Environment Inside the Door -->
     <!-- <a-sky src="assets/spruit_sunrise_1k_HDR.jpg" radius="10"></a-sky> -->
