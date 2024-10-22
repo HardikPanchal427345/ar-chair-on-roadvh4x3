@@ -71,12 +71,18 @@
 
   <script>
     const modelViewer = document.querySelector('#model');
+    let isInAR = false;
 
-    // Detect tap/click in AR mode
+    // Detect AR mode
+    modelViewer.addEventListener('ar-status', (event) => {
+      isInAR = event.detail.status === 'session-started';
+    });
+
+    // Check click event and proximity in AR
     modelViewer.addEventListener('click', () => {
-      // Check if in AR mode
-      if (modelViewer.isInAR) {
-        // Redirect to a specific URL
+      if (isInAR) {
+        // Optionally, you could calculate distance from the camera (if using an advanced setup)
+        // For simplicity, redirect directly when clicked in AR
         window.location.href = 'https://your-link.com';
       }
     });
@@ -84,4 +90,3 @@
 
 </body>
 </html>
-
