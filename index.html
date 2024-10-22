@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR Portal Door with Plane Detection</title>
+  <title>AR Portal Door with Plane Detection</title> -->
   <!-- A-Frame and Extras -->
 <!--   <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.min.js"></script> -->
 <!--   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script> -->
@@ -15,12 +15,12 @@
 <!-- <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script> -->
 <!-- <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script> -->
 
-  <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.min.js"></script>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<!--   <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.min.js"></script> -->
+<!--   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script> -->
   <!-- <script src="https://cdn.rawgit.com/aframevr/aframe-extras/v5.0.0/dist/aframe-extras.min.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
+<!--   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script> -->
   <!-- <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script> -->
-  <script type='text/javascript'
+<!--   <script type='text/javascript'
     src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
   <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
 </head>
@@ -52,17 +52,60 @@
     webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test">
     <a-camera hit-test></a-camera>
   <a-entity id="portalDoor" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)" scale="0.5 0.5 0.5" position="0 0 -5" visible="false"></a-entity>
-<!--     <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.02890470866964; longitude: 72.5296803563716;" scale="10 10 10"></a-entity>
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0357837; longitude: 72.5488921;" scale="10 10 10"></a-entity>
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0360459; longitude: 72.5487928;" scale="10 10 10"></a-entity>
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0363423; longitude: 72.5488216;" scale="10 10 10"></a-entity>
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0365228; longitude: 72.5488295;" scale="10 10 10"></a-entity>
-    <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0369368; longitude: 72.5488719;" scale="10 10 10"></a-entity>
-   <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0373334; longitude: 72.5488661;" scale="10 10 10"></a-entity>
-   <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 23.0383854; longitude: 72.5489037;" scale="10 10 10"></a-entity> -->
-<!--     <a-light type="directional" position="0 10 0" intensity="0.8" castShadow="true"></a-light> -->
-<!--     <a-light type="ambient" intensity="0.5"></a-light> -->
 </a-scene>
+  <app-root></app-root>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Portal Door with Plane Detection</title>
+  <!-- A-Frame and Extras -->
+  <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.min.js"></script>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
+  <script type='text/javascript'
+    src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
+  <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
+
+  <script>
+    AFRAME.registerComponent('hit-test', {
+      init: function () {
+        const portalDoor = document.getElementById("portal-door");
+
+        this.el.addEventListener('click', (event) => {
+          if (event.detail.intersection) {
+            let intersectedPoint = event.detail.intersection.point;
+            portalDoor.setAttribute('position', intersectedPoint);
+            portalDoor.setAttribute('visible', true);
+            portalDoor.setAttribute('scale', '1 1 1');
+          }
+        });
+      }
+    });
+  </script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+  <a-scene vr-mode-ui="enabled: false" renderer="antialias: true" xrweb="optionalFeatures: hit-test, local-floor"
+    webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test">
+
+    <!-- Portal Door Model -->
+    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)"
+      scale="0 0 0" visible="false"></a-entity>
+
+    <!-- Camera for AR with WebXR Hit Test -->
+    <a-camera hit-test>
+      <!-- Cursor for clicking -->
+      <a-cursor color="yellow" fuse="true" fuse-timeout="1000" position="0 0 -1">
+      </a-cursor>
+    </a-camera>
+  </a-scene>
   <app-root></app-root>
 </body>
 
