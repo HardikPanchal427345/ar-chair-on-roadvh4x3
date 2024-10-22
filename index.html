@@ -64,19 +64,23 @@
     body {
       margin: 0;
       overflow: hidden;
+      position: relative; /* Make sure body is positioned */
     }
-    /* Overlay styles */
+    /* Full-screen overlay styles */
     #overlay {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+      position: fixed; /* Change to fixed to stay on top */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       color: white;
       font-size: 20px;
       background-color: rgba(0, 0, 0, 0.7);
-      padding: 10px;
-      border-radius: 5px;
+      display: none; /* Initially hidden */
+      justify-content: center;
+      align-items: center;
+      display: flex; /* Use flexbox for centering */
       pointer-events: none; /* Allow clicks to go through the overlay */
-      
     }
   </style>
 </head>
@@ -88,7 +92,7 @@
     interaction-prompt="auto" style="width: 100%; height: 80vh;">
   </model-viewer>
 
-  <!-- Overlay div -->
+  <!-- Full-screen overlay div -->
   <div id="overlay">Tap the model for more info!</div>
 
   <script>
@@ -101,7 +105,7 @@
       isInAR = event.detail.status === 'session-started';
       // Show overlay when entering AR mode
       if (isInAR) {
-        overlay.style.display = 'block'; // Show overlay
+        overlay.style.display = 'flex'; // Show overlay and center text
       } else {
         overlay.style.display = 'none'; // Hide overlay when AR session ends
       }
