@@ -65,11 +65,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AR Portal Door with Plane Detection</title>
+
   <!-- A-Frame and Extras -->
   <script src="https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.min.js"></script>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
-  <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
+  <script type='text/javascript'
+    src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
   <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
 
   <script>
@@ -77,21 +79,29 @@
       init: function () {
         const portalDoor = document.getElementById("portal-door");
 
-        // Set the door's initial visibility to false
+        // Initially set the door to be invisible
         portalDoor.setAttribute('visible', false);
-
-        // This event will trigger when the cursor intersects with an object
+        portalDoor.addEventListener('click', (event) => {
+          console.log('Portal door clicked!');
+        });
+        // Listen for the cursor click event
         this.el.addEventListener('click', (event) => {
-          alert('clicked')
           const intersection = event.detail.intersection;
 
-          // Check if there is a valid intersection
+          // Debugging: Log intersection details
+          console.log('Intersection Details:', intersection);
+
+          // Check if there's a valid intersection point
           if (intersection) {
             const intersectedPoint = intersection.point;
+            // Debugging: Log the point where the portal door will be placed
+            console.log('Placing portal door at:', intersectedPoint);
             // Set the position of the portal door and make it visible
             portalDoor.setAttribute('position', intersectedPoint);
             portalDoor.setAttribute('visible', true);
             portalDoor.setAttribute('scale', '1 1 1'); // Scale to original size
+          } else {
+            console.log('No valid intersection detected.');
           }
         });
       }
@@ -104,17 +114,13 @@
     webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test">
 
     <!-- Portal Door Model -->
-    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)" scale="0 0 0" visible="false"></a-entity>
+    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)"
+      scale="0.5 0.5 0.5" position="0 0 -5" visible="true"></a-entity>
 
     <!-- Camera for AR with WebXR Hit Test -->
     <a-camera hit-test>
       <!-- Cursor for clicking -->
-      <a-cursor
-        id="cursor"
-        color="yellow"
-        fuse="true"
-        fuse-timeout="1000"
-        position="0 0 -1">
+      <a-cursor id="cursor" color="yellow" fuse="true" fuse-timeout="1000" position="0 0 -1"   geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03">
       </a-cursor>
     </a-camera>
   </a-scene>
