@@ -82,6 +82,7 @@
 
         // This event will trigger when the cursor intersects with an object
         this.el.addEventListener('click', (event) => {
+          alert('clicked')
           const intersection = event.detail.intersection;
 
           // Check if there is a valid intersection
