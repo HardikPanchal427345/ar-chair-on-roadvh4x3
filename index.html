@@ -60,6 +60,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AR Model with Link and Exit</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    /* Overlay styles */
+    #overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      font-size: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+      pointer-events: none; /* Allow clicks to go through the overlay */
+      display: none; /* Initially hidden */
+    }
+  </style>
 </head>
 <body>
 
@@ -69,13 +88,23 @@
     interaction-prompt="auto" style="width: 100%; height: 80vh;">
   </model-viewer>
 
+  <!-- Overlay div -->
+  <div id="overlay">Tap the model for more info!</div>
+
   <script>
     const modelViewer = document.querySelector('#model');
+    const overlay = document.querySelector('#overlay');
     let isInAR = false;
 
     // Detect AR mode
     modelViewer.addEventListener('ar-status', (event) => {
       isInAR = event.detail.status === 'session-started';
+      // Show overlay when entering AR mode
+      if (isInAR) {
+        overlay.style.display = 'block'; // Show overlay
+      } else {
+        overlay.style.display = 'none'; // Hide overlay when AR session ends
+      }
     });
 
     // Check click event in AR, redirect to link and refresh the page (simulates closing AR session)
