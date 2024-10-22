@@ -29,18 +29,9 @@
 </head>
 
 <body style="margin: 0; overflow: hidden;">
-  <a-scene vr-mode-ui="enabled: false" renderer="antialias: true" xrweb="optionalFeatures: hit-test, local-floor"
-    webxr="optionalFeatures: hit-test, local-floor; requiredFeatures: hit-test" ar-hit-test="target:#portal-door;">
-
-    <!-- Portal Door Model -->
-    <a-entity id="portal-door" gltf-model="url(https://first-free-bucket-hnpanchal.s3.amazonaws.com/model.glb)" scale="0 0 0" visible="false"></a-entity>
-
-    <!-- 3D Environment Inside the Door -->
-    <!-- <a-sky src="assets/spruit_sunrise_1k_HDR.jpg" radius="10"></a-sky> -->
-
-    <!-- Camera for AR with WebXR Hit Test -->
-    <a-camera ></a-camera>
-  </a-scene>
+  <a-entity id="rig" position="25 10 0">
+  <a-camera id="camera"></a-camera>
+</a-entity>
   <app-root></app-root>
 </body>
 
