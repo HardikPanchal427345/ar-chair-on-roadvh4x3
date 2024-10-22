@@ -78,14 +78,16 @@
       isInAR = event.detail.status === 'session-started';
     });
 
-    // Check click event in AR, redirect to link and exit AR mode
+    // Check click event in AR, redirect to link and refresh the page (simulates closing AR session)
     modelViewer.addEventListener('click', () => {
       if (isInAR) {
         // Redirect to a link
         window.location.href = 'https://your-link.com';
         
-        // Exit AR session
-        modelViewer.exitWebXR();
+        // Optionally, refresh the page to exit AR mode
+        setTimeout(() => {
+          window.location.reload(); // This forces a refresh to simulate exiting AR
+        }, 1000);  // Delay for any redirection
       }
     });
   </script>
