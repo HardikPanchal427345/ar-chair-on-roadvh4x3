@@ -79,6 +79,7 @@
         const portalDoor = document.getElementById("portal-door");
 
         this.el.addEventListener('click', (event) => {
+          alert('clicked')
           if (event.detail.intersection) {
             let intersectedPoint = event.detail.intersection.point;
             portalDoor.setAttribute('position', intersectedPoint);
