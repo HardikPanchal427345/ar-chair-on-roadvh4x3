@@ -27,7 +27,9 @@
   <script>
     AFRAME.registerComponent('hit-test', {
       init: function () {
+        
         const sceneEl = this.el;
+        alert(sceneEl)
         let portalDoor = document.getElementById("portalDoor");
 
         sceneEl.addEventListener('click', (event) => {
